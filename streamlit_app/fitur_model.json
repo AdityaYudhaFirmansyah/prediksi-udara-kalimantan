@@ -1,0 +1,40 @@
+{
+  "fitur": [
+    "pm25",
+    "organic_matter",
+    "black_carbon",
+    "dust",
+    "sea_salt",
+    "sulfate",
+    "n_hotspot",
+    "n_high",
+    "frp_sum",
+    "frp_max",
+    "hotspot_lag1",
+    "pm25_lag1",
+    "hotspot_lag2",
+    "pm25_lag2",
+    "hotspot_lag3",
+    "pm25_lag3",
+    "hotspot_roll7",
+    "pm25_roll7",
+    "om_share",
+    "bulan",
+    "prov_Central Kalimantan",
+    "prov_East Kalimantan",
+    "prov_North Kalimantan",
+    "prov_South Kalimantan",
+    "prov_West Kalimantan"
+  ],
+  "kolom_log": [
+    "n_hotspot",
+    "n_high",
+    "frp_sum",
+    "frp_max",
+    "hotspot_lag1",
+    "hotspot_lag2",
+    "hotspot_lag3",
+    "hotspot_roll7"
+  ],
+  "batas_baik": 15.5
+}
