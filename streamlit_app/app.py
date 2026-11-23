@@ -1,5 +1,6 @@
 import io
 import json
+from pathlib import Path
 import altair as alt
 import joblib
 import numpy as np
@@ -8,6 +9,8 @@ import streamlit as st
 
 from utils import (NAMA_PROV, KOMPONEN, OPSIONAL, WAJIB, siapkan, pangsa_komponen, rasio_frp,
                    bangun_fitur, prediksi_batch)
+
+BASE = Path(__file__).resolve().parent   # semua berkas dicari relatif terhadap lokasi app.py
 
 st.set_page_config(page_title="Prediksi Udara Kalimantan", page_icon="🌫️", layout="wide")
 
@@ -61,12 +64,12 @@ st.markdown(CSS, unsafe_allow_html=True)
 # ------------------------------------------------------------------ data dan model
 @st.cache_resource
 def muat_model():
-    return joblib.load("model_rf_karhutla.joblib"), json.load(open("fitur_model.json"))
+    return joblib.load(BASE / "model_rf_karhutla.joblib"), json.load(open(BASE / "fitur_model.json"))
 
 
 @st.cache_data
 def muat_data():
-    df = pd.read_csv("dataset_karhutla.csv", parse_dates=["date"])
+    df = pd.read_csv(BASE / "dataset_karhutla.csv", parse_dates=["date"])
     return df, pangsa_komponen(df), rasio_frp(df)
 
 
@@ -272,7 +275,7 @@ with tab4:
         'Data: hotspot VIIRS S-NPP (NASA FIRMS) digabung PM2.5 reanalisis MERRA-2 per provinsi Kalimantan, 7 Jan 2025 – 30 Agu 2026. '
         'Model Random Forest dipilih dari tiga algoritma (Decision Tree, Random Forest, SVM).</div></div>', unsafe_allow_html=True)
     st.markdown('<div class="sec">Perbandingan pada data uji (1 Jun – 30 Agu 2026)</div>', unsafe_allow_html=True)
-    st.dataframe(pd.read_csv("hasil_perbandingan_model.csv").round(3), hide_index=True)
+    st.dataframe(pd.read_csv(BASE / "hasil_perbandingan_model.csv").round(3), hide_index=True)
     st.markdown('<div class="note"><b>Keterbatasan.</b> Model hanya sedikit lebih baik daripada aturan sederhana “besok sama dengan hari ini” pada F1; '
                 'nilai tambahnya ada pada peringatan awal lonjakan. Data latih hanya memuat 41 hari Tidak Baik, PM2.5 berasal dari reanalisis '
                 'rata-rata provinsi (bukan stasiun), dan hotspot belum tentu berarti kebakaran. Aplikasi ini proyek pembelajaran dan '
